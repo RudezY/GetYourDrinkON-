@@ -1,3 +1,4 @@
+
 var apiIng = "www.thecocktaildb.com/api/json/v1/1/filter.php?i=" ;
 var apiDrink = "www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" ;
 var liquorName = "";
@@ -20,3 +21,22 @@ function getDrink(event) {
 // make a function that will store past drink choices 5
 // click handlers for search function and selecting drink choice
 $("#search-button").on("click",getDrink);
+
+var apiIng = "www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
+var apiDrink = "www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
+
+var formEl = $("#searchForm");
+var inputEl = $("#termInput");
+
+formEl.on("submit", function (e) {
+function search(term) {
+  var url = "some url" + term;
+
+
+  //fetch
+  
+}
+  e.preventDefault();
+  console.log("input", inputEl.val());
+  //now we take value and search api
+});
