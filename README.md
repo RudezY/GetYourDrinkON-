@@ -1,2 +1,2 @@
-# placeholder-name
+# GetYourDrinkON!
 Project 1
