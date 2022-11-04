@@ -1,3 +1,14 @@
 .jumbotron {
+    text-align: center;
+    background-color: transparent;
+    color: black;
+    border-radius: 0;
+    border-bottom: 10px solid black;
+    padding: 40px;
+  }
     
+#history {
+display: flex;
+   align-items: flex-end;
+   align-content: flex-end;
 }
