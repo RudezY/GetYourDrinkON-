@@ -13,3 +13,7 @@ display: flex;
    align-content: flex-end;
 }
 
+.drinkDisplay{
+  display: flex;
+  justify-content: space-evenly;
+}
