@@ -5,9 +5,10 @@ var sDrinks = [];
 var formEl = $("#searchForm");
 var inputEl = $("#termInput");
 var drinkDisplay = $(".drinkDisplay")
-
+var resetbutton = $("#resetbtn");
 
 formEl.on("submit", function (e) {
+  
   e.preventDefault()
   var term = inputEl.val()
   var url = apiIng + term;
@@ -23,18 +24,23 @@ formEl.on("submit", function (e) {
 console.log(data.drinks[i]);
       var drinkDiv = document.createElement("div")
       drinkDiv.innerHTML += `
-    	<div style="display: flex;">
-      	<p>Char</p>
+    	<div style="vertical-align: middle;">
       	<img style="flex-grow: 1; height: 60px;" src="${data.drinks[i].strDrinkThumb}" />
         <p>${data.drinks[i].strDrink}</p>
       </div>
     `
     document.querySelector('.drinkDisplay').appendChild(drinkDiv)
     drinkDiv.addEventListener('click', function(e) {
-      
+
     })
 
     }
 
   }).catch(err => console.log(err));
 })
+
+function clearInput() {
+  document.getElementById("searchForm").reset();
+  window.location.reload();
+}
+$("#resetbtn").on("click", clearInput);
