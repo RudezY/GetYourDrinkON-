@@ -24,7 +24,7 @@ formEl.on("submit", function (e) {
 console.log(data.drinks[i]);
       var drinkDiv = document.createElement("div")
       drinkDiv.innerHTML += `
-    	<div style="display: flex;">
+    	<div style="vertical-align: middle;">
       	<img style="flex-grow: 1; height: 60px;" src="${data.drinks[i].strDrinkThumb}" />
         <p>${data.drinks[i].strDrink}</p>
       </div>
