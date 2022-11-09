@@ -46,8 +46,8 @@ function createDrinkCard(data){
   drinkDiv.setAttribute("class", "alldrinks")
   drinkDiv.innerHTML += `
   <div style="vertical-align: middle;">
-    <img style="flex-grow: 1; height: 60px;" src="${data.strDrinkThumb}" />
-    <p>${data.strDrink}</p>
+    <img style="flex-grow: 1; height: 200px;" src="${data.strDrinkThumb}" />
+    <p style ="inline-size:200px">${data.strDrink}</p>
   </div>
 `   
 document.querySelector('.drinkDisplay').appendChild(drinkDiv)
@@ -71,7 +71,7 @@ document.querySelector('.drinkDisplay').appendChild(drinkDiv)
 });
 }
 
-//fetch (/cleanedOutput.json)
+
 
 // TODO function that takes a drink's data and store in localStorage as favorite drinks
 function saveToFavorites(drinkData){
@@ -88,27 +88,56 @@ function saveDrinkHistory(drinkId){
 
 function getOneDrink(drinkId){
 
-  console.log("ere's yo drink id", drinkId)
+  console.log("here's yo drink id", drinkId)
   //TODO - use drinkID and build API call, test to see if get data
-  let drinktoShow = document.getElementsByClassName('alldrinks');
-  const drinkClicked = () => {
-    theDrink = this.getAttribute('drink-id');
-    console.log(theDrink)
-    url2 = apiDrink + theDrink  
+  let theDrink = drinkId
+  console.log("here is theDrink", theDrink)
+  url2 = apiDrink + theDrink
+    console.log( "here is the url", url2)  
     fetch(`${url2}`)
     .then(response => {
     return response.json()
     
   }).then(data => {
     console.log(data);
+    document.querySelector('.singleDrink').innerHTML="";
+    //filter_array_values(data)
+    for (var i = 0; i < data.drinks.length; i++) {
+      var selectedDrink = data.drinks.length
+      createDrinkCard(selectedDrink);
+ 
+    }
+  }).catch(err => console.log(err));
 
-    
-  })
+}
+
+// function filter_array_values(arr) {
+//   arr = arr.filter(isEligible);
+//   return arr;
+// }
+
+// function isEligible(value) {
+//   if(value !== false || value !== null || value !== 0 || value !== "") {
+//     return value;
+//   }
+// }
+
+function createMainDrinkCard(selectedDrink) {
+var drinkSection = document.createElement("div");
+drinkSection.setAttribute("drinkchoice", selectedDrink.idDrink)
+drinkSection.setAttribute("class", "theDrinkSelected");
+drinkSection.innerHTML += `
+<div id="hide" style ="vertical-align: middle; max-height: 100px; max-width: 100px;">
+ <img style ="flex-grow: 1; height: 100px;" src="${selectedDrink.strDrinkThumb}" />
+ <p>${selectedDrink.strIngredient[i]} : ${selectedDrink.strMeasure[i]}</p>
+</div>
+ `
+if(getOneDrink()) {
+  $('drink-id').addId("hide");
+  $('theDrinkSelected').removeId('hide');
+  //$('theDrinkSelected').addId('show');
 }
 }
-
-
-
 
 
 
