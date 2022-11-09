@@ -16,5 +16,18 @@ display: flex;
 .drinkDisplay{
   display: flex;
   justify-content: space-evenly;
+  text-align: center;
+}
+.alldrinks{
+  margin: 5px;
+  background-color: red;
+  padding: 10px;
 }
 
+#show{
+  display:""
+}
+
+#hide {
+  display: none;
+}
