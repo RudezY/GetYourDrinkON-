@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=
-, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="./assets/style.css">
+    <script src="https://kit.fontawesome.com/30f7095b9b.js" crossorigin="anonymous"></script>  
      <title>Get Your Drink ON!</title>
 </head>
 <body>
@@ -22,27 +22,29 @@
         </nav>
         </id=>
   </header>
-
-  <div class="container">
+<div class="container">
     <div class="row">
-      <div class="col-md-12 text-center col-xs-12">
-        <form id="searchForm">
-            <label for="termInput">Search a drink</label>
-            <input id="termInput" type="text">
-            <button type="submit">Search</button>
-            <button id="resetbtn" onclick="clearInput()">RESET SEARCH</button>
-        </form>
-</div>
-
-<div class="containerForDrinks row" id ="show">
-    <div class="row" id="drinkContainer">
-
-        <div class="drinkDisplay row col-md-12">
-            
+        <div class="col-md-12 text-center col-xs-12">
+            <form id="searchForm">
+                <div class="wrapper">
+                    <input type="text" id="termInput" placeholder="What is your Poison">
+                    <button type="submit" class="searchbtn"><i class="fa-solid fa-champagne-glasses"></i>
+                    </button>
+                    <button id="resetbtn" onclick="clearInput()">RESET SEARCH</button>
+                </div>
+            </form>
         </div>
-            
+        <div class="containerForDrinks row" id ="show">
+            <div class="row" id="drinkContainer">
+        
+                <div class="drinkDisplay row col-md-12">
+                    
+                </div>
     </div>
 </div>
+
+  
+
 
 <section class="singleDrink" id="hide">
 
