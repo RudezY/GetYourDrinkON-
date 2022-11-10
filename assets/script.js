@@ -102,11 +102,23 @@ function getOneDrink(drinkId){
     console.log(data);
     document.querySelector('.singleDrink').innerHTML="";
     //filter_array_values(data)
-    for (var i = 0; i < data.drinks.length; i++) {
-      var selectedDrink = data.drinks.length
-      createDrinkCard(selectedDrink);
- 
-    }
+    
+      var selectedDrink = data.drinks[0]
+      console.log("here is a selected drink", selectedDrink);
+      var drinkIngredients = []
+      for(var i = 1; i < 16; i++) {
+        var name = selectedDrink['strIngredient'+i];
+        //if there's an ingredient name, add to the list
+        if(name){
+          drinkIngredients.push({name: name.trim(), measurement: selectedDrink['strMeasure'+i]?.trim()})
+        }else{
+          break;
+        }
+      }
+      selectedDrink.ingredients = drinkIngredients
+      createMainDrinkCard(cleanUpNullish(selectedDrink));
+;
+    
   }).catch(err => console.log(err));
 
 }
@@ -123,22 +135,32 @@ function getOneDrink(drinkId){
 // }
 
 function createMainDrinkCard(selectedDrink) {
+  console.log("HERE'S YO DATA", selectedDrink);
 var drinkSection = document.createElement("div");
 drinkSection.setAttribute("drinkchoice", selectedDrink.idDrink)
 drinkSection.setAttribute("class", "theDrinkSelected");
 drinkSection.innerHTML += `
-<div id="hide" style ="vertical-align: middle; max-height: 100px; max-width: 100px;">
+<div style ="vertical-align: middle; align-content:center; max-height: 100px; max-width: 100px;">
  <img style ="flex-grow: 1; height: 100px;" src="${selectedDrink.strDrinkThumb}" />
- <p>${selectedDrink.strIngredient[i]} : ${selectedDrink.strMeasure[i]}</p>
+ <p>selectedDrink.ingredients</p>
 </div>
  `
-if(getOneDrink()) {
-  $('drink-id').addId("hide");
-  $('theDrinkSelected').removeId('hide');
-  //$('theDrinkSelected').addId('show');
-}
-}
+// if(getOneDrink()) {
+  $('.drinkDisplay').hide();
+  $('.singleDrink').append(drinkSection);
+//   $('theDrinkSelected').removeId('hide');
+//   //$('theDrinkSelected').addId('show');
+// }
+ }
 
+
+ //this function is a utility that takes an object and removes the nullish fields
+ var cleanUpNullish = obj => {
+  Object.keys(obj).forEach(key => {
+      obj[key] === null && (delete obj[key])
+  });
+  return obj
+}
 
 
 function clearInput() {
