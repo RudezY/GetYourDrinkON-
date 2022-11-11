@@ -1,3 +1,9 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .jumbotron {
     text-align: center;
     background-color: transparent;
@@ -5,6 +11,7 @@
     border-radius: 0;
     border-bottom: 10px solid black;
     padding: 40px;
+    background-image: url(/Images/cartoon\ bootles.jpeg);
   }
     
 #history {
@@ -33,4 +40,70 @@ justify-content: space-around;
 
 #hide {
   display: none;
+}
+
+body, html{
+  background-image: url(/Images/martini\ glass.jpeg);
+  /* background-repeat: no-repeat; */
+  /* background-size: 100%; */
+height: 100vh;
+width: 100%;
+background-position: center;
+/* background-repeat: no-repeat; */
+background-size: cover;
+}
+
+
+.wrapper{
+  /* display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center; */
+
+  margin: auto;
+  width: 30%;
+  height: 50px;
+  border: 3px solid;
+  opacity: 1;
+  /* padding: 5px; */
+  background:rgba(0,0,0,.5);
+  /* max-width: 550px; */
+  /* width: 50%; */
+  /* padding: 15px; */
+  border-radius: 10px;
+  /* position: center; */
+  /* top: 50%; */
+  /* left: 50%; */
+  /* look to */
+display: flex;
+justify-content: space-between;
+  
+}
+
+#termInput{
+  width: 90%;
+  opacity: .5;
+  /* color: whitesmoke; */
+  /* background-color: transparent; */
+  /* background-color: 0,0,0,.; */
+  /* padding: 15px 20px; */
+border: none;
+border-radius: 5px;
+color: red;
+/* font-weight: bold; */
+}
+
+.searchbtn{
+  background-color: red;
+  background: red;
+  overflow: hidden;
+  outline: none;
+  width: 15%;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+
 }
