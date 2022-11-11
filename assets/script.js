@@ -31,9 +31,9 @@ formEl.on("submit", function (e) {
 
 $("#historybtn").on("click", historyInput);
 
-var userClickedArray = [];
-
 function createDrinkCard(data) {
+  $(".drinkDisplay").show();
+  //DONT FORGET TO REMOVE EVERYTHING IN "singleDrink" element!!!
   var drinkDiv = document.createElement("div");
   drinkDiv.setAttribute("drink-id", data.idDrink);
   drinkDiv.setAttribute("class", "alldrinks");
@@ -44,12 +44,12 @@ function createDrinkCard(data) {
     <p style ="inline-size:200px">${data.strDrink}</p>
   </div>
 `;
-
   document.querySelector(".drinkDisplay").appendChild(drinkDiv);
   drinkDiv.addEventListener("click", function () {
     var drinkId = this.getAttribute("drink-id");
     var drinkImg = data.strDrinkThumb;
     var drinkName = data.strDrink;
+    getOneDrink(drinkId);
     console.log(drinkName);
     console.log(drinkImg);
     var userClicked = {
@@ -57,6 +57,12 @@ function createDrinkCard(data) {
       drinkId: drinkId,
       picture: drinkImg,
     };
+
+    //get it from localStorage;
+    var userClickedArray =
+      JSON.parse(localStorage.getItem("clickedDrinks")) || [];
+
+    //TODO - Maybe DONT push if already in the clickedArray? HINT- research on the Array.prototype.find method
     userClickedArray.push(userClicked);
     localStorage.setItem("clickedDrinks", JSON.stringify(userClickedArray));
   });
@@ -80,42 +86,65 @@ function getOneDrink(drinkId) {
     })
     .then((data) => {
       console.log(data);
-
-      document.querySelector(
-        ".singleDrink"
-      ).innerHTML = `${data.drinks.drinks[0].idDrink}`;
-      console.log(drink);
+      document.querySelector(".singleDrink").innerHTML = "";
       //filter_array_values(data)
-      for (var i = 0; i < data.drinks.length; i++) {
-        var selectedDrink = data.drinks.length;
-        createDrinkCard(selectedDrink);
+
+      var selectedDrink = data.drinks[0];
+      console.log("here is a selected drink", selectedDrink);
+      var drinkIngredients = [];
+      for (var i = 1; i < 16; i++) {
+        var name = selectedDrink["strIngredient" + i];
+        //if there's an ingredient name, add to the list
+        if (name) {
+          drinkIngredients.push({
+            name: name.trim(),
+            measurement: selectedDrink["strMeasure" + i]?.trim(),
+          });
+        } else {
+          break;
+        }
       }
+      selectedDrink.ingredients = drinkIngredients;
+      createMainDrinkCard(cleanUpNullish(selectedDrink));
     })
     .catch((err) => console.log(err));
 }
 
 function createMainDrinkCard(selectedDrink) {
-  //
+  console.log("HERE'S YO DATA", selectedDrink);
   var drinkSection = document.createElement("div");
   drinkSection.setAttribute("drinkchoice", selectedDrink.idDrink);
   drinkSection.setAttribute("class", "theDrinkSelected");
-  drinkSection.innerHTML += `
-<div id="hide" style ="vertical-align: middle; max-height: 100px; max-width: 100px;">
- <img style ="flex-grow: 1; height: 100px;" src="${selectedDrink.strDrinkThumb}" />
- <p>${selectedDrink.strIngredient[i]} : ${selectedDrink.strMeasure[i]}</p>
-</div>
- `;
-  if (getOneDrink()) {
-    $("drink-id").addId("hide");
-    $("theDrinkSelected").removeId("hide");
+  //make var here to store the ingredients html string
+  var ingredientsHTML = "";
+  for (let i = 0; i < selectedDrink.ingredients.length; i++) {
+    ingName = selectedDrink.ingredients[i].name;
+    ingMeasurement = selectedDrink.ingredients[i].measurement;
+    //create 1 ingredient html in each loop and add to the htmlString for all ingredients
+    ingredientsHTML += `
+    <p>${ingName} : ${ingMeasurement}</p>
+    `;
   }
+  drinkSection.innerHTML += `
+      <div style ="vertical-align: middle; align-content:center; max-height: 100px; max-width: 100px;">
+       <img style ="flex-grow: 1; height: 100px;" src="${selectedDrink.strDrinkThumb}" />
+      ${ingredientsHTML}
+       Here is how to make the drink :
+       ${selectedDrink.strInstructions}
+      </div>
+       `;
+
+  $(".drinkDisplay").hide();
+  $(".singleDrink").append(drinkSection);
+  console.log("This is the data im looking for", selectedDrink.ingredients);
 }
 
 function historyInput() {
   document.getElementById("searchForm").reset();
   document.querySelector(".drinkDisplay").innerHTML = "";
-
-  var historyDrinks = JSON.parse(localStorage.getItem("clickedDrinks"));
+  //DONT FORGET TO REMOVE EVERYTHING IN "singleDrink" element!!!
+  $(".drinkDisplay").show();
+  var historyDrinks = JSON.parse(localStorage.getItem("clickedDrinks")) || [];
   console.log(historyDrinks);
 
   for (i = 0; i < historyDrinks.length; i++) {
@@ -140,8 +169,20 @@ function historyInput() {
   }
 }
 
+$("#resetbtn").on("click", clearInput);
+
+//after for loop and creating the ingredientsHTML, put in as part of the whole recipe html
+
+//this function is a utility that takes an object and removes the nullish fields
+var cleanUpNullish = (obj) => {
+  Object.keys(obj).forEach((key) => {
+    obj[key] === null && delete obj[key];
+  });
+  return obj;
+};
+
 function clearInput() {
   document.getElementById("searchForm").reset();
   document.querySelector(".drinkDisplay").innerHTML = "";
+  location.reload();
 }
-$("#resetbtn").on("click", clearInput);
