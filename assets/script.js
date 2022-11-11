@@ -29,7 +29,7 @@ formEl.on("submit", function (e) {
     .catch((err) => console.log(err));
 });
 
-$("#historybtn").on("click", clearInput);
+$("#historybtn").on("click", historyInput);
 
 var userClickedArray = [];
 
@@ -111,7 +111,7 @@ function createMainDrinkCard(selectedDrink) {
   }
 }
 
-function clearInput() {
+function historyInput() {
   document.getElementById("searchForm").reset();
   document.querySelector(".drinkDisplay").innerHTML = "";
 
@@ -140,4 +140,8 @@ function clearInput() {
   }
 }
 
+function clearInput() {
+  document.getElementById("searchForm").reset();
+  document.querySelector(".drinkDisplay").innerHTML = "";
+}
 $("#resetbtn").on("click", clearInput);
