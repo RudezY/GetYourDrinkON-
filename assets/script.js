@@ -1,17 +1,12 @@
 var apiIng = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
 var apiDrink = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
 var drink = "";
-var drinkHistory = JSON.parse(localStorage.getItem("drinkHistory")) || [];
+var drinkHistory = JSON.parse(localStorage.getItem("clickedDrinks")) || [];
 var formEl = $("#searchForm");
 var inputEl = $("#termInput");
 var drinkDisplay = $(".drinkDisplay");
 var resetbutton = $("#resetbtn");
 var selectedDrinkID = $("drink-id");
-
-console.log(
-  "HERE ARE YOUR DRINK HISTORY, if you want to consume",
-  drinkHistory
-);
 
 formEl.on("submit", function (e) {
   e.preventDefault();
@@ -34,50 +29,43 @@ formEl.on("submit", function (e) {
     .catch((err) => console.log(err));
 });
 
-//function that takes a drink's data and creates a drink card and put it on the page
+$("#historybtn").on("click", clearInput);
+
+var userClickedArray = [];
 
 function createDrinkCard(data) {
   var drinkDiv = document.createElement("div");
   drinkDiv.setAttribute("drink-id", data.idDrink);
   drinkDiv.setAttribute("class", "alldrinks");
+
   drinkDiv.innerHTML += `
   <div style="vertical-align: middle;">
     <img style="flex-grow: 1; height: 200px;" src="${data.strDrinkThumb}" />
     <p style ="inline-size:200px">${data.strDrink}</p>
   </div>
 `;
+
   document.querySelector(".drinkDisplay").appendChild(drinkDiv);
   drinkDiv.addEventListener("click", function () {
     var drinkId = this.getAttribute("drink-id");
-    var drinkIDS = this.getAttribute("drink-id");
-    localStorage.setItem("drink-id", drinkIDS);
-    getOneDrink(drinkId);
-    //if you want to store all the drinks that user clicks on
-    saveDrinkHistory(drinkId);
-    // Come back to this later
-    // var oldIDS = localStorage.getItem("drink-id");
-    // if (oldIDS) {
-    //   oldIDS = JSON.parse(oldIDS)
-    // }else {
-    //   oldIDS = [];
-    // }
-    // //oldIDS.push('drink-id')
-    // localStorage.setItem('drink-ids',JSON.stringify(oldIDS));
-    // on click use apiDrink + drink-id to display drink with ingredients and instructions
+    var drinkImg = data.strDrinkThumb;
+    var drinkName = data.strDrink;
+    console.log(drinkName);
+    console.log(drinkImg);
+    var userClicked = {
+      drinkName: drinkName,
+      drinkId: drinkId,
+      picture: drinkImg,
+    };
+    userClickedArray.push(userClicked);
+    localStorage.setItem("clickedDrinks", JSON.stringify(userClickedArray));
   });
 }
 
 // TODO function that takes a drink's data and store in localStorage as favorite drinks
-function saveToFavorites(drinkData) {
-  //saves to localStorage
-}
+function saveToFavorites(drinkData) {}
 
-function saveDrinkHistory(drinkId) {
-  //deduplicate the array;
-  //only push if array doesn't already have this id
-  drinkHistory.push(drinkId);
-  localStorage.setItem("drinkHistory", JSON.stringify(drinkHistory));
-}
+function saveDrinkHistory(drinkId) {}
 
 function getOneDrink(drinkId) {
   console.log("here's yo drink id", drinkId);
@@ -92,7 +80,6 @@ function getOneDrink(drinkId) {
     })
     .then((data) => {
       console.log(data);
-      //RJ Starting here. Trying to grab ID
 
       document.querySelector(
         ".singleDrink"
@@ -106,17 +93,6 @@ function getOneDrink(drinkId) {
     })
     .catch((err) => console.log(err));
 }
-
-// function filter_array_values(arr) {
-//   arr = arr.filter(isEligible);
-//   return arr;
-// }
-
-// function isEligible(value) {
-//   if(value !== false || value !== null || value !== 0 || value !== "") {
-//     return value;
-//   }
-// }
 
 function createMainDrinkCard(selectedDrink) {
   //
@@ -132,13 +108,36 @@ function createMainDrinkCard(selectedDrink) {
   if (getOneDrink()) {
     $("drink-id").addId("hide");
     $("theDrinkSelected").removeId("hide");
-    //$('theDrinkSelected').addId('show');
   }
 }
 
 function clearInput() {
   document.getElementById("searchForm").reset();
   document.querySelector(".drinkDisplay").innerHTML = "";
+
+  var historyDrinks = JSON.parse(localStorage.getItem("clickedDrinks"));
+  console.log(historyDrinks);
+
+  for (i = 0; i < historyDrinks.length; i++) {
+    var historydiv = document.createElement("div");
+    console.log(
+      `We are working on drink with id: ${historyDrinks[i].drinkId}. And name: ${historyDrinks[i].drinkName}. And Img url: ${historyDrinks[i].picture}`
+    );
+    var historypic = historyDrinks[i].picture;
+    var historyDrinkNames = historyDrinks[i].drinkName;
+    console.log(historyDrinkNames);
+    console.log(historypic);
+    historydiv.setAttribute("drink-id", historyDrinkNames[i].drinkId);
+
+    historydiv.setAttribute("class", "alldrinks");
+    historydiv.innerHTML += `
+      <div style="vertical-align: middle;">
+        <img style="flex-grow: 1; height: 200px;" src="${historypic}" />
+        <p style ="inline-size:200px">${historyDrinkNames}</p>
+      </div>
+      `;
+    document.querySelector(".drinkDisplay").appendChild(historydiv);
+  }
 }
 
 $("#resetbtn").on("click", clearInput);
