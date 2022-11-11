@@ -30,7 +30,10 @@ display: flex;
   background-color: red;
   padding: 10px;
 }
-
+.theDrinkSelected{
+display: flex;
+justify-content: space-around;
+}
 #show{
   display:""
 }
