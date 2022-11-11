@@ -1,57 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" >
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <link rel="stylesheet" href="./assets/style.css">
-     <title>Get Your Drink ON!</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/style.css" />
+    <script
+      src="https://kit.fontawesome.com/30f7095b9b.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Get Your Drink ON!</title>
+  </head>
+  <body>
     <header class="jumbotron">
-        <h1 class="display-3">Get Your Drink On!!!</h1>
-        <p class="lead">What is your Poison</p>
-        <p class="lead"> We'll Help you decide</p>
-        <nav style="display:flex; justify-content:flex-end">
-            <a href="./history.html" target="_blank"alt="Opens a new tab of History">View History</a>
-    
-        </nav>
-        </id=>
-  </header>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 text-center col-xs-12">
-        <form id="searchForm">
-            <label for="termInput">Search a drink</label>
-            <input id="termInput" type="text">
-            <button type="submit">Search</button>
-            <button id="resetbtn" onclick="clearInput()">RESET SEARCH</button>
-        </form>
-</div>
-
-<div class="containerForDrinks row" id ="show">
-    <div class="row" id="drinkContainer">
-          
-        <div class="drinkDisplay row col-md-12">
-            
+      <h1 class="display-3">Get Your Drink On!!!</h1>
+      <p class="lead">What is your Poison</p>
+      <p class="lead">We'll Help you decide</p>
+      <nav style="display: flex; justify-content: flex-end">
+        <!-- <a href="./history.html" target="_blank"alt="Opens a new tab of History">View History</a>  -->
+        <!-- changing the aboove line to a button -->
+        <button id="historybtn">View History</button>
+      </nav>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center col-xs-12">
+          <form id="searchForm">
+            <div class="wrapper">
+              <input
+                type="text"
+                id="termInput"
+                placeholder="What is your Poison"
+              />
+              <button type="submit" class="searchbtn">
+                <i class="fa-solid fa-champagne-glasses"></i>
+              </button>
+              <button id="resetbtn" onclick="clearInput()">RESET SEARCH</button>
+            </div>
+          </form>
         </div>
-
-            
-    </div> 
-
-</div>
-
-<section class="singleDrink">
-
-
-</section>
-
-</body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="./assets/script.js"></script>
+        <div class="containerForDrinks row" id="show">
+          <div class="row" id="drinkContainer">
+            <div class="drinkDisplay row col-md-12"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="singleDrink"></section>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="./assets/script.js"></script>
 </html>
