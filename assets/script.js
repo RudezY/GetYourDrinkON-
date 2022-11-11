@@ -129,7 +129,7 @@ function createMainDrinkCard(selectedDrink) {
   console.log("HERE'S YO DATA", selectedDrink);
 var drinkSection = document.createElement("div");
 drinkSection.setAttribute("drinkchoice", selectedDrink.idDrink)
-drinkSection.setAttribute("class", "theDrinkSelected");
+drinkSection.setAttribute("class", "theDrinkSelected col-md-12 justify-content:space-around; mt-15; pt-5");
 //make var here to store the ingredients html string
 var ingredientsHTML = "";
 for (let i = 0; i < selectedDrink.ingredients.length; i++) {
@@ -137,7 +137,7 @@ for (let i = 0; i < selectedDrink.ingredients.length; i++) {
   ingMeasurement = selectedDrink.ingredients[i].measurement;
   //create 1 ingredient html in each loop and add to the htmlString for all ingredients
   ingredientsHTML += `
-  <p>${ingName} : ${ingMeasurement}</p>
+  <p style = "font-weight: Bolder; pt-2 mt-2">${ingName} : ${ingMeasurement}</p>
   `
   console.log("This is the data im looking for", selectedDrink.ingredients)
 }
@@ -145,8 +145,8 @@ for (let i = 0; i < selectedDrink.ingredients.length; i++) {
 
 //after for loop and creating the ingredientsHTML, put in as part of the whole recipe html
 drinkSection.innerHTML += `
-<div style ="vertical-align: middle; align-content:center; max-height: 100px; max-width: 100px;">
- <img style ="flex-grow: 1; height: 100px;" src="${selectedDrink.strDrinkThumb}" />
+<div style ="min-height: 700px; max-width: 400px;">
+ <img style ="flex-grow: 1; width: 300px; height: 300px;" src="${selectedDrink.strDrinkThumb}" />
 ${ingredientsHTML}
  Here is how to make the drink :
  ${selectedDrink.strInstructions}
