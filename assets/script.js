@@ -58,16 +58,7 @@ document.querySelector('.drinkDisplay').appendChild(drinkDiv)
   getOneDrink(drinkId)
   //if you want to store all the drinks that user clicks on 
   saveDrinkHistory(drinkId)
-  // Come back to this later
-  // var oldIDS = localStorage.getItem("drink-id");
-  // if (oldIDS) {
-  //   oldIDS = JSON.parse(oldIDS)
-  // }else {
-  //   oldIDS = [];
-  // }
-  // //oldIDS.push('drink-id')
-  // localStorage.setItem('drink-ids',JSON.stringify(oldIDS));
-  // on click use apiDrink + drink-id to display drink with ingredients and instructions 
+
 });
 }
 
@@ -139,18 +130,33 @@ function createMainDrinkCard(selectedDrink) {
 var drinkSection = document.createElement("div");
 drinkSection.setAttribute("drinkchoice", selectedDrink.idDrink)
 drinkSection.setAttribute("class", "theDrinkSelected");
+//make var here to store the ingredients html string
+var ingredientsHTML = "";
+for (let i = 0; i < selectedDrink.ingredients.length; i++) {
+  ingName = selectedDrink.ingredients[i].name;
+  ingMeasurement = selectedDrink.ingredients[i].measurement;
+  //create 1 ingredient html in each loop and add to the htmlString for all ingredients
+  ingredientsHTML += `
+  <p>${ingName} : ${ingMeasurement}</p>
+  `
+  console.log("This is the data im looking for", selectedDrink.ingredients)
+}
+
+
+//after for loop and creating the ingredientsHTML, put in as part of the whole recipe html
 drinkSection.innerHTML += `
 <div style ="vertical-align: middle; align-content:center; max-height: 100px; max-width: 100px;">
  <img style ="flex-grow: 1; height: 100px;" src="${selectedDrink.strDrinkThumb}" />
- <p>selectedDrink.ingredients</p>
+${ingredientsHTML}
+ Here is how to make the drink :
+ ${selectedDrink.strInstructions}
 </div>
  `
-// if(getOneDrink()) {
+ console.log("info for the", selectedDrink.ingredients[0])
+
   $('.drinkDisplay').hide();
   $('.singleDrink').append(drinkSection);
-//   $('theDrinkSelected').removeId('hide');
-//   //$('theDrinkSelected').addId('show');
-// }
+
  }
 
 
@@ -166,6 +172,7 @@ drinkSection.innerHTML += `
 function clearInput() {
   document.getElementById("searchForm").reset();
   document.querySelector('.drinkDisplay').innerHTML="";
+  location.reload();
 };
 
 $("#resetbtn").on("click", clearInput)
