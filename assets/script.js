@@ -32,6 +32,7 @@ formEl.on("submit", function (e) {
 $("#historybtn").on("click", historyInput);
 
 function createDrinkCard(data) {
+  removeDrinkCards();
   $(".drinkDisplay").show();
   //DONT FORGET TO REMOVE EVERYTHING IN "singleDrink" element!!!
   var drinkDiv = document.createElement("div");
@@ -140,6 +141,7 @@ function createMainDrinkCard(selectedDrink) {
 }
 
 function historyInput() {
+  removeDrinkCards();
   document.getElementById("searchForm").reset();
   document.querySelector(".drinkDisplay").innerHTML = "";
   //DONT FORGET TO REMOVE EVERYTHING IN "singleDrink" element!!!
@@ -154,9 +156,11 @@ function historyInput() {
     );
     var historypic = historyDrinks[i].picture;
     var historyDrinkNames = historyDrinks[i].drinkName;
+    var historyDrinkID = historyDrinks[i].drinkId;
+    console.log("this is a past drink selected", historyDrinkID)
     console.log(historyDrinkNames);
     console.log(historypic);
-    historydiv.setAttribute("drink-id", historyDrinkNames[i].drinkId);
+    historydiv.setAttribute("pastDrink-id", historyDrinkID);
 
     historydiv.setAttribute("class", "alldrinks");
     historydiv.innerHTML += `
@@ -166,6 +170,10 @@ function historyInput() {
       </div>
       `;
     document.querySelector(".drinkDisplay").appendChild(historydiv);
+   historydiv.addEventListener("click", function (){
+    var oldDrinkID = this.getAttribute("pastDrink-id")
+    getOneDrink(oldDrinkID)
+   });
   }
 }
 
@@ -180,7 +188,10 @@ var cleanUpNullish = (obj) => {
   });
   return obj;
 };
-
+function removeDrinkCards() {
+  let element = document.getElementsByClassName("theDrinkSelected")
+ element.remove();
+}
 function clearInput() {
   document.getElementById("searchForm").reset();
   document.querySelector(".drinkDisplay").innerHTML = "";
