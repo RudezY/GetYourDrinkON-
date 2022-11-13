@@ -72,7 +72,6 @@ function createDrinkCard(data) {
 // TODO function that takes a drink's data and store in localStorage as favorite drinks
 function saveToFavorites(drinkData) {}
 
-function saveDrinkHistory(drinkId) {}
 
 function getOneDrink(drinkId) {
   console.log("here's yo drink id", drinkId);
@@ -189,8 +188,8 @@ var cleanUpNullish = (obj) => {
   return obj;
 };
 function removeDrinkCards() {
-  let element = document.getElementsByClassName("theDrinkSelected")
- element.remove();
+$(".theDrinkSelected").remove();
+
 }
 function clearInput() {
   document.getElementById("searchForm").reset();
