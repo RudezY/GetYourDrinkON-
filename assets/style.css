@@ -27,12 +27,33 @@ display: flex;
 }
 .alldrinks{
   margin: 5px;
-  background-color: red;
+  background-color: #17684f ;
+  opacity: .6;
   padding: 10px;
+  font-weight: bolder;
+  color: whitesmoke;
+  font-size: 20px;
 }
+.singleDrinkSelected{
+  justify-content: center;
+    margin: 5px;
+    background-color: #17684f ;
+    opacity: .8;
+    padding: 10px;
+    font-weight: bolder;
+    color: white;
+    font-size: 20px;
+    align-items: center;
+  border-radius: 15px;
+  border-color: white;
+  border-width: 2px;
+  border-style: groove;
+  }
+
 .theDrinkSelected{
 display: flex;
 justify-content: space-around;
+
 }
 #show{
   display:""
@@ -93,17 +114,35 @@ color: red;
 /* font-weight: bold; */
 }
 
-.searchbtn{
+.searchbtn {
   background-color: red;
   background: red;
   overflow: hidden;
   outline: none;
-  width: 15%;
+  width: 25%;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+
+.doubleGlass{
+  display: none;
+  
+}
+
+/* button i:hover .singleGlass {
+
+display:none;
+} */
+
+#resetbtn{
+  width: 100px;
+  padding: 5px;
+  margin-left: 1px;
+  border-radius: 5px;
 
 }
