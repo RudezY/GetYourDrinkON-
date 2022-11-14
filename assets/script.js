@@ -1,12 +1,13 @@
 var apiIng = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=";
 var apiDrink = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
 var drink = "";
-var drinkHistory = JSON.parse(localStorage.getItem("clickedDrinks")) || [];
+var historyDrinks = JSON.parse(localStorage.getItem("clickedDrinks")) || [];
 var formEl = $("#searchForm");
 var inputEl = $("#termInput");
 var drinkDisplay = $(".drinkDisplay");
 var resetbutton = $("#resetbtn");
 var selectedDrinkID = $("drink-id");
+var userClickedArray = [];
 
 formEl.on("submit", function (e) {
   e.preventDefault();
@@ -58,15 +59,28 @@ function createDrinkCard(data) {
       drinkId: drinkId,
       picture: drinkImg,
     };
-
     //get it from localStorage;
     var userClickedArray =
       JSON.parse(localStorage.getItem("clickedDrinks")) || [];
 
-    //TODO - Maybe DONT push if already in the clickedArray? HINT- research on the Array.prototype.find method
+    //TODO - Maybe DONT push if already in the clickedArray? HINT- research on the Array.prototype.find method 
+     removeDuplicates(userClickedArray)
     userClickedArray.push(userClicked);
     localStorage.setItem("clickedDrinks", JSON.stringify(userClickedArray));
+  
   });
+}
+
+function removeDuplicates(userClickedArray) {
+ userClickedArray.sort();
+ for (var i = 0; i < userClickedArray.length; i++) {
+  if(userClickedArray[i-1] == userClickedArray[i]) {
+    userClickedArray.splice(i, 1);
+ }else {
+  i++;
+ }
+}
+return userClickedArray;
 }
 
 // TODO function that takes a drink's data and store in localStorage as favorite drinks
