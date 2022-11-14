@@ -140,8 +140,8 @@ function createMainDrinkCard(selectedDrink) {
     `;
   }
   drinkSection.innerHTML += `
-  <div style ="min-height: 700px; max-width: 400px;">
-  <img style ="flex-grow: 1; width: 300px; height: 300px;" src="${selectedDrink.strDrinkThumb}" />
+  <div class = "singleDrinkSelected" style ="min-height: 700px; max-width: 400px;">
+  <img style ="flex-grow: 1; margin-left:43px; width: 300px; height: 300px;" src="${selectedDrink.strDrinkThumb}" />
  ${ingredientsHTML}
        Here is how to make the drink :
        ${selectedDrink.strInstructions}

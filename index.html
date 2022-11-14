@@ -24,14 +24,8 @@
     <title>Get Your Drink ON!</title>
   </head>
   <body>
-    <header class="jumbotron">
-      <h1 class="display-3">Get Your Drink On!!!</h1>
-      <p class="lead">What is your Poison</p>
-      <p class="lead">We'll Help you decide</p>
-      <nav style="display: flex; justify-content: flex-end">
-        <!-- <a href="./history.html" target="_blank"alt="Opens a new tab of History">View History</a>  -->
-        <!-- changing the above line to a button -->
-        <button id="historybtn">View History</button>
+    <header>
+        <button id="historybtn" style="background: red; color: white; padding: 5px;">View History</button>
       </nav>
     </header>
     <div class="container">
@@ -42,12 +36,12 @@
               <input
                 type="text"
                 id="termInput"
-                placeholder="What is your Poison"
+                placeholder="Search a drink by liquor"
               />
               <button type="submit" class="searchbtn">
                 <i class="fa-solid fa-champagne-glasses"></i>
               </button>
-              <button id="resetbtn" onclick="clearInput()">RESET SEARCH</button>
+              <button id="resetbtn" onclick="clearInput()">  RESET  </button>
             </div>
           </form>
         </div>
