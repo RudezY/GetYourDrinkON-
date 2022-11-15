@@ -7,7 +7,7 @@ We wanted to create an application to help with the creation of mixed drinks. It
 
 ## Installation
 
-*PlaceholderURL*
+https://rudezy.github.io/GetYourDrinkON-/
 
 ## Usage
 
