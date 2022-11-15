@@ -13,21 +13,21 @@ formEl.on("submit", function (e) {
   e.preventDefault();
   var term = inputEl.val();
   var url = apiIng + term;
-  console.log(term);
+  // console.log(term);
   //fetch
   fetch(`${url}`)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       document.querySelector(".drinkDisplay").innerHTML = "";
       for (var i = 0; i < data.drinks.length; i++) {
         var drinkData = data.drinks[i];
         createDrinkCard(drinkData);
       }
     })
-    .catch((err) => console.log(err));
+    // .catch((err) => console.log(err));
 });
 
 $("#historybtn").on("click", historyInput);
@@ -52,59 +52,52 @@ function createDrinkCard(data) {
     var drinkImg = data.strDrinkThumb;
     var drinkName = data.strDrink;
     getOneDrink(drinkId);
-    console.log(drinkName);
-    console.log(drinkImg);
+    // console.log(drinkName);
+    // console.log(drinkImg);
     var userClicked = {
       drinkName: drinkName,
       drinkId: drinkId,
       picture: drinkImg,
     };
     //get it from localStorage;
-    var userClickedArray =
+    var historyDrinks =
       JSON.parse(localStorage.getItem("clickedDrinks")) || [];
 
-    //TODO - Maybe DONT push if already in the clickedArray? HINT- research on the Array.prototype.find method 
-     removeDuplicates(userClickedArray)
-    userClickedArray.push(userClicked);
-    localStorage.setItem("clickedDrinks", JSON.stringify(userClickedArray));
-  
+    //TODO - Maybe DONT push if already in the clickedArray? HINT- research on the Array.prototype.find method
+    for (var i = 0; i < historyDrinks.length; i++) {
+      if (historyDrinks[i].drinkName === userClicked.drinkName) {
+        return;
+      }
+    }
+
+    historyDrinks.push(userClicked);
+    localStorage.setItem("clickedDrinks", JSON.stringify(historyDrinks));
   });
 }
+    
 
-function removeDuplicates(userClickedArray) {
- userClickedArray.sort();
- for (var i = 0; i < userClickedArray.length; i++) {
-  if(userClickedArray[i-1] == userClickedArray[i]) {
-    userClickedArray.splice(i, 1);
- }else {
-  i++;
- }
-}
-return userClickedArray;
-}
 
 // TODO function that takes a drink's data and store in localStorage as favorite drinks
 function saveToFavorites(drinkData) {}
 
-
 function getOneDrink(drinkId) {
-  console.log("here's yo drink id", drinkId);
+  // console.log("here's yo drink id", drinkId);
   //TODO - use drinkID and build API call, test to see if get data
   let theDrink = drinkId;
-  console.log("here is theDrink", theDrink);
+  // console.log("here is theDrink", theDrink);
   url2 = apiDrink + theDrink;
-  console.log("here is the url", url2);
+  // console.log("here is the url", url2);
   fetch(`${url2}`)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       document.querySelector(".singleDrink").innerHTML = "";
       //filter_array_values(data)
 
       var selectedDrink = data.drinks[0];
-      console.log("here is a selected drink", selectedDrink);
+      // console.log("here is a selected drink", selectedDrink);
       var drinkIngredients = [];
       for (var i = 1; i < 16; i++) {
         var name = selectedDrink["strIngredient" + i];
@@ -121,14 +114,17 @@ function getOneDrink(drinkId) {
       selectedDrink.ingredients = drinkIngredients;
       createMainDrinkCard(cleanUpNullish(selectedDrink));
     })
-    .catch((err) => console.log(err));
+    // .catch((err) => console.log(err));
 }
 
 function createMainDrinkCard(selectedDrink) {
-  console.log("HERE'S YO DATA", selectedDrink);
+  // console.log("HERE'S YO DATA", selectedDrink);
   var drinkSection = document.createElement("div");
   drinkSection.setAttribute("drinkchoice", selectedDrink.idDrink);
-  drinkSection.setAttribute("class", "theDrinkSelected col-md-12 justify-content:space-around; mt-15; pt-5");
+  drinkSection.setAttribute(
+    "class",
+    "theDrinkSelected col-md-12 justify-content:space-around; mt-15; pt-5"
+  );
   //make var here to store the ingredients html string
   var ingredientsHTML = "";
   for (let i = 0; i < selectedDrink.ingredients.length; i++) {
@@ -150,7 +146,7 @@ function createMainDrinkCard(selectedDrink) {
 
   $(".drinkDisplay").hide();
   $(".singleDrink").append(drinkSection);
-  console.log("This is the data im looking for", selectedDrink.ingredients);
+  // console.log("This is the data im looking for", selectedDrink.ingredients);
 }
 
 function historyInput() {
@@ -160,19 +156,19 @@ function historyInput() {
   //DONT FORGET TO REMOVE EVERYTHING IN "singleDrink" element!!!
   $(".drinkDisplay").show();
   var historyDrinks = JSON.parse(localStorage.getItem("clickedDrinks")) || [];
-  console.log(historyDrinks);
+  // console.log(historyDrinks);
 
   for (i = 0; i < historyDrinks.length; i++) {
     var historydiv = document.createElement("div");
-    console.log(
+    // console.log(
       `We are working on drink with id: ${historyDrinks[i].drinkId}. And name: ${historyDrinks[i].drinkName}. And Img url: ${historyDrinks[i].picture}`
-    );
+    ;
     var historypic = historyDrinks[i].picture;
     var historyDrinkNames = historyDrinks[i].drinkName;
     var historyDrinkID = historyDrinks[i].drinkId;
-    console.log("this is a past drink selected", historyDrinkID)
-    console.log(historyDrinkNames);
-    console.log(historypic);
+    // console.log("this is a past drink selected", historyDrinkID);
+    // console.log(historyDrinkNames);
+    // console.log(historypic);
     historydiv.setAttribute("pastDrink-id", historyDrinkID);
 
     historydiv.setAttribute("class", "alldrinks");
@@ -183,10 +179,10 @@ function historyInput() {
       </div>
       `;
     document.querySelector(".drinkDisplay").appendChild(historydiv);
-   historydiv.addEventListener("click", function (){
-    var oldDrinkID = this.getAttribute("pastDrink-id")
-    getOneDrink(oldDrinkID)
-   });
+    historydiv.addEventListener("click", function () {
+      var oldDrinkID = this.getAttribute("pastDrink-id");
+      getOneDrink(oldDrinkID);
+    });
   }
 }
 
@@ -202,8 +198,7 @@ var cleanUpNullish = (obj) => {
   return obj;
 };
 function removeDrinkCards() {
-$(".theDrinkSelected").remove();
-
+  $(".theDrinkSelected").remove();
 }
 function clearInput() {
   document.getElementById("searchForm").reset();
